@@ -72,6 +72,7 @@ def index(doc):
     #     "content": doc.content
     # }
     json_doc = json.dumps(doc.__dict__)
+
     res = es.index(index="docs", doc_type='webpage', id=doc.id, body=json_doc, ignore=[400])
     # print(res["_id"] + " indexed")
 
