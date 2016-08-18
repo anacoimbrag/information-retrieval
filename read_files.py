@@ -2,7 +2,7 @@ import gzip
 import os
 
 from elastic_search import index, search
-import html2txt
+import parser
 
 path = os.getcwd() + "/WT10G/sample"
 
@@ -20,8 +20,9 @@ for root, dirs, files in os.walk(path):
             docs = separate_docs(text)
             for doc in docs:
                 if doc != "b'":
-                    t = html2txt.html2text(doc)
-                    index(t)
+                    p = Parser()
+                    p.feed(doc)
+                    p.start(t)
 
 
 search("do beavers live in salt water")
