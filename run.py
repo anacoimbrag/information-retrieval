@@ -3,7 +3,7 @@ import os
 
 import datetime
 
-from elastic_search import setup_index, create_index
+from elastic_search import setup_index, create_index, search
 from read_files import read_files
 
 path = os.getcwd() + "/WT10G/sample/"
@@ -20,6 +20,11 @@ print("Started")
 pool.map_async(read_files, namefiles)
 pool.close()
 pool.join()
+
+os.system("cat " + os.getcwd() + "/parser.json | ./stream2es stdin "
+                                 "--settings '{\"settings\": {\"index\": \"docs\", \"type\": \"webpage\"}}'")
 finish = datetime.datetime.now()
 print("Finished " + str(finish - start))
+
+search("do beavers live in salt water")
 

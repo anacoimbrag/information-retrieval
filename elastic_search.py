@@ -18,7 +18,9 @@ def create_index():
 
 
 def setup_index():
-    es.indices.close(index="docs")
+    f = open("parser.json", "w")
+    f.write("")
+    es.indices.close(index="foo")
     es.indices.put_settings(body={
         "settings": {
             "index": {
@@ -34,7 +36,7 @@ def setup_index():
             }
         },
         "mappings": {
-            "webpage": {
+            "t": {
                 "properties": {
                     "title": {
                         "analyzer": "analyzer_keyword",
@@ -59,8 +61,8 @@ def setup_index():
                 }
             }
         }
-    }, index="docs")
-    es.indices.open(index="docs")
+    }, index="foo")
+    es.indices.open(index="foo")
 
 
 def index(doc):
@@ -72,8 +74,10 @@ def index(doc):
     #     "content": doc.content
     # }
     json_doc = json.dumps(doc.__dict__)
-
-    res = es.index(index="docs", doc_type='webpage', id=doc.id, body=json_doc, ignore=[400])
+    f = open("parser.json", "a")
+    f.write(json_doc + "\n")
+    f.close()
+    # res = es.index(index="docs", doc_type='webpage', id=doc.id, body=json_doc, ignore=[400])
     # print(res["_id"] + " indexed")
 
 
