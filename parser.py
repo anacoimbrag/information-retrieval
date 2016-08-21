@@ -31,7 +31,6 @@ class Document:
         self.content += content + " "
 
 
-# create a subclass and override the handler methods
 class Parser(HTMLParser):
     def __init__(self):
         super().__init__()

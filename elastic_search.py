@@ -10,7 +10,6 @@ connectives = ["in", "s", "d", "t", "by", "of", "out", "and", "or", "to", "as", 
 verbs = ["is", "are", "been", "have", "do", "does"]
 
 es = Elasticsearch(['http://localhost:9200'])
-feed = "foo"
 
 
 def delete_index():
@@ -22,11 +21,10 @@ def create_index():
 
 
 def setup_index():
-    f = open("parser.json", "w")
-    f.write("")
     es.indices.close(index="foo")
     es.indices.put_settings(body={
         "settings": {
+            "index.codec": "best_compression",
             "index": {
                 "analysis": {
                     "analyzer": {
@@ -70,26 +68,12 @@ def setup_index():
 
 
 def index(doc):
-    # json_doc = {
-    #     "title": doc.title,
-    #     "h1": doc.h1,
-    #     "h2": doc.h2,
-    #     "h3": doc.h3,
-    #     "content": doc.content
-    # }
     json_doc = json.dumps(doc.__dict__)
     f = open("parser.json", "a")
     f.write(json_doc + "\n")
     f.close()
-    # res = es.index(index="docs", doc_type='webpage', id=doc.id, body=json_doc, ignore=[400])
-    # print(res["_id"] + " indexed")
 
 
 def search(query):
     res = es.search(q=query, filter_path=['hits.hits._id'])
     print(res)
-
-# f = open("parser.json")
-# for line in f.readline():
-#     res = es.index(index="docs", doc_type='webpage', id=line.index, body=line, ignore=[400])
-#     print(line.index , " indexed")
