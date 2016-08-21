@@ -10,11 +10,15 @@ connectives = ["in", "s", "d", "t", "by", "of", "out", "and", "or", "to", "as", 
 verbs = ["is", "are", "been", "have", "do", "does"]
 
 es = Elasticsearch(['http://localhost:9200'])
-# es.indices.delete(index="docs")
+feed = "foo"
+
+
+def delete_index():
+    es.indices.delete(index="foo")
 
 
 def create_index():
-    es.indices.create(index="docs")
+    es.indices.create(index="foo")
 
 
 def setup_index():

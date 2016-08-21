@@ -1,0 +1,144 @@
+WT10g README
+============
+
+Contents of WT10g
+-----------------
+
+WT10g consists of data distributed on 5 CDs, numbered CD1 to CD5. The
+data is split into individual directories, WTX001, WTX002 and so
+on. Within each directory, documents are bundled together into files
+of roughly 2MB in size, numbered B01, B02 .. B50. The bundle files are
+all compressed using gzip, so exist as B01.gz etc.
+
+CD1 contains data for the following: WTX001 .. WTX024, each directory contains 50 bundle files B01.gz .. B50.gz
+CD2 contains data for the following: WTX024 .. WTX048, each directory contains 50 bundle files B01.gz .. B50.gz
+CD3 contains data for the following: WTX049 .. WTX072, each directory contains 50 bundle files B01.gz .. B50.gz
+CD4 contains data for the following: WTX073 .. WTX096, each directory contains 50 bundle files B01.gz .. B50.gz
+CD5 contains data for the following: WTX097 .. WTX104, each directory contains 50 bundle files B01.gz .. B50.gz
+                                                       except WTX104, containing 7 bundle files B01.gz .. B07.gz
+CD5 also contains:                   info, which has additional information generated for WT10g data, described below.
+
+Note well: The contents of this directory ( WT10g::CD5::info ) do not
+constitute part of WT10g's data.
+
+None of the files in this info directory should be indexed.
+
+It contains the following files:
+
+README -	this file
+docid_to_url -	mappings: WT10g docid -> URL (*)
+homepages -	mappings: server name -> WT10g docid
+in_links -	mappings: WT10g docid -> set of WT10g docids, whose pages 
+                          contain (incoming) links to this page (*)
+out_links -	mappings: WT10g docid -> set of WT10g docids, whose pages 
+                          are named by (outgoing) links from this page (*)
+servers -       server names
+url_to_docid -  mappings: URL -> WT10g docid 
+wt10g_to_vlc2 - mappings: WT10g docid -> VLC2 docid (*)
+
+URLs are of the form: 		http://server_name/path
+Server names are of the form: 	www.foo.com:port_number
+Port numbers are of the form: 	1234 (but are usually just 80)
+WT10g docids are of the form: 	WTX123-B45-6789, where the final doc 
+                                number in the bundle is numbered from 1
+VLC2 docids are of the form: 	IA012-003456-B078-901, where the final 
+                                doc number in the bundle is numbered from 1
+
+(*) Note well:
+
+All info files are sorted using the Linux sort routine, using the
+first entry of each line as the sort key.  Since the last component of
+a WT10g docid is numbered sequentially from 1 upwards, and the sort
+order is alphabetical, these files have a slightly confusing ordering,
+which is not identical to the numeric ordering of the documents within
+each bundle.
+
+For example, the first entries of docid_to_url are:
+
+WTX001-B01-1 http://www.ram.org:80/ramblings/movies/jimmy_hollywood.html
+WTX001-B01-10 http://sd48.mountain-inter.net:80/hss/teachers/Prothero.html
+WTX001-B01-100 http://www.ccs.org:80/hc/9607/win95.html
+WTX001-B01-101 http://www.cdc.net:80/~dejavu/scuba-spec.html
+WTX001-B01-102 http://www.cdm.com:80/humanres/jobs/enevga.html
+
+after which there are a number of other entires followed by:
+
+WTX001-B01-198 http://www.cdc.net:80/~dupre/pharmacy/CD581.html
+WTX001-B01-199 http://www.cdnemb-washdc.org:80/baltimor.html
+WTX001-B01-2 http://www.radio.cbc.ca:80/radio/programs/current/quirks/archives/feb1796.htm
+WTX001-B01-20 http://moe.med.yale.edu:80/mirror/vat/la.html
+WTX001-B01-200 http://www.cdc.net:80/~dupre/pharmacy/pbsound.html
+WTX001-B01-201 http://www.cdnemb-washdc.org:80/sanfran.html
+
+and so on.
+
+
+Document format
+---------------
+
+The following is an example document contained within the collection.
+All documents are delimited by <DOC></DOC> tags. The unique WT10g
+document identifier is enclosed within <DOCNO></DOCNO> tags, and the
+old VLC2 document identifier is contained on the next line between
+<DOCOLDNO></DOCOLDNO> tags. Next comes a <DOCHDR></DOCHDR> section
+which provides various bits of information about the document reported
+by the http server which served the document to the original Internet
+Archive crawler. Lastly the actual HTML source is given.
+
+<DOC>
+<DOCNO>WTX104-B01-1</DOCNO>
+<DOCOLDNO>IA097-001048-B043-338</DOCOLDNO>
+<DOCHDR>
+http://msfcinfo.msfc.nasa.gov:80/nmo/nmonasa.html 192.112.225.4 19970215104446 text/html 1014
+HTTP/1.0 200 Document follows
+Date: Sat, 15 Feb 1997 10:37:04 GMT
+Server: NCSA/1.5
+Content-type: text/html
+</DOCHDR>
+
+<HTML>
+<HEAD>
+<TITLE>Instructions to NASA Sponsors </TITLE> </HEAD>
+<BODY><H1><STRONG>Instructions to NASA Sponsors </STRONG></H1><P><H3>JPL is under the institutional management of 
+the Office of Space Science at NASA Headquarters.  NASA Centers or activities contemplating the placement of resea
+rch and development work at the Jet Propulsion Laboratory may contact the NASA Contracting Officer(<A href="mailto
+: vstickley@nmo.jpl.nasa.gov"> vstickley@nmo.jpl.nasa.gov)</a> at the  NMO  for more details or the Research and A
+dministration Division of the Office of Space Science, Code SP at NASA Headquarters.
+
+
+</H3><HR>[<A HREF="nmohome.html">NMO Procurement Home Page</A>]<P>Please send comments and questions to <A href="m
+ailto:kwolf@nmo.jpl.nasa.gov"> wolf@nmo.jpl.nasa.gov</a><BR>Curator and Owner:  Katherine M. Wolf<BR>Last update t
+o this page: September 15, 1995 @ 3:23 p.m. PDT
+
+
+</BODY>
+</HTML>
+
+</DOC>
+
+
+Disclaimer 
+---------- 
+
+While all reasonable attempts have been made to accurately identify
+URLs and link references occurring in documents in this collection, we
+make no guarantee as to the correctness or completeness of the
+information contained in the files in this directory. In particular,
+URL canonicalisation is a fiendishly problematic task, especially with
+relative URLs and HTML tags such as base hrefs. Similarly, servers are
+identified sometimes by IP addresses and sometimes by hostname. It may
+be the case that some hostnames are aliases for others, and/or for IP
+addresses represented within the collection. In all cases, do not rely
+on the info files to be completely accurate.
+
+If you encounter any major discrepancies within the info files, we 
+would be very grateful to hear about them.
+
+
+
+-----------------------------------
+Web and Associated Research project
+ACSys Cooperative Research Centre
+http://pastime.anu.edu.au/WAR
+
+2000/03/15
